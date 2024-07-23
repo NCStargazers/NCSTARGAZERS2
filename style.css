@@ -1,0 +1,36 @@
+html {
+    height: 100%;
+}
+body {
+    background-color: black;
+    background-image: url(https://www.shutterstock.com/shutterstock/videos/9569429/thumb/1.jpg?ip=x480);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+h1 {
+    color: white;
+    text-align: center;
+    font-size: xx-large;
+}
+button {
+    background-color: white;
+    color: black;
+    height: 50px;
+    width: 250px;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+button:hover {
+    background-color: gray;
+}
+p { 
+    color: white;
+    text-align: center;
+    font-size: xx-large;
+}
+#dateContainer {
+    color: gray;
+    font-size: 20px;
+    text-align: center;
+}
