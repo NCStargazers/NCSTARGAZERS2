@@ -27,10 +27,53 @@ button:hover {
 p { 
     color: white;
     text-align: center;
-    font-size: xx-large;
+    font-size: x-large;
 }
 #dateContainer {
     color: gray;
     font-size: 20px;
     text-align: center;
+}
+h2.info {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+span.number {
+    color: orangered;
+    font-family: 'Times New Roman', Times, serif;
+}
+.sphere {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    align-items: center;
+}
+.hemisphere {
+    width: 50%;
+    height: 100%
+}
+.light {
+    background-color: whitesmoke;
+}
+.dark {
+    background-color: navy;
+}
+.divider,
+.divider:after {
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+.divider {
+    background-color: navy;
+}
+.divider:after {
+    content: '';
+    background-color: whitesmoke;
+    transform: rotateY(180deg);
 }

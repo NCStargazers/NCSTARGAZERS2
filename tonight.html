@@ -5,10 +5,27 @@
     <title>Best of tonight:</title>
 </head>
 <body>
-    <p>Best of tonight:</p>
+    <h1>Best of tonight:</h1>
+    <p>New Canaan, CT</p>
+    <p>41° 8' 47" N. 73° 29' 43" W.</p>
     <div id="dateContainer"></div>
     <script>
         document.getElementById('dateContainer').innerHTML = Date();
     </script>
+    <h2 class="info">Light Pollution = <span class="number">9 </h2>
+    <div class="sphere">
+        <div class="lighthem"></div>
+        <div class="darkhem"></div>
+        <div class="divider"></div>
+    </div>
+    <script>
+        const getMoonPhaseRotation = dateContainer => {
+            const cycleLength = 29.5
+            const knownNewMoon = new Date('2024-07-05 18:57:00')
+            const secondsSinceKnownNewMoon = (date - knownNewMoon) / 1000
+            const daysSinceKnownNewMoon = secondsSinceKnownNewMoon / 3600 /24
+            const currentMoonPhasePercentage = (daysSinceKnownNewMoon % cycleLength)
+            return 360 - Math.floor(currentMoonPhasePercentage*360)
+        }
 </body>
 </html>
