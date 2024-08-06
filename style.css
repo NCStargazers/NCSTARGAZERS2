@@ -15,6 +15,7 @@ h1 {
 }
 button {
     background-color: white;
+    text-align: center;
     color: black;
     height: 50px;
     width: 250px;
@@ -23,6 +24,7 @@ button {
 }
 button:hover {
     background-color: gray;
+    cursor: pointer;
 }
 p { 
     color: white;
@@ -34,6 +36,10 @@ p {
     font-size: 20px;
     text-align: center;
 }
+#moonPhaseContainer {
+    color: white;
+    font-size: 30px;
+}
 h2.info {
     color: white;
     font-family: 'Times New Roman', Times, serif;
@@ -42,38 +48,324 @@ span.number {
     color: orangered;
     font-family: 'Times New Roman', Times, serif;
 }
-.sphere {
-    border-radius: 100%;
+.moon-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.moon-image {
     width: 100px;
     height: 100px;
-    overflow: hidden;
-    align-items: center;
-}
-.hemisphere {
-    width: 50%;
-    height: 100%
-}
-.light {
+    border-radius: 50%;
     background-color: whitesmoke;
+    position: relative;
 }
-.dark {
-    background-color: navy;
-}
-.divider,
-.divider:after {
+.moon-image::after {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-}
-.divider {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     background-color: navy;
 }
-.divider:after {
-    content: '';
-    background-color: whitesmoke;
-    transform: rotateY(180deg);
+.new-moon .moon-image::after {
+    background-color: navy;
+}
+.waxing-crescent .moon-image::after {
+    width: 50%;
+    transform: translateX(50%);
+}
+.first-quarter .moon-image::after {
+    width: 50%;
+}
+.waxing-gibbous .moon-image::after {
+    width: 25%;
+    transform: translateX(75%);
+}
+.full-moon .moon-image::after {
+    display: none;
+}
+.waning-gibbous .moon-image::after {
+    width: 25%;
+    transform: translateX(-25%);
+}
+.last-quarter .moon-image::after {
+    width: 50%;
+    transform: translateX(0%);
+}
+.waning-crescent .moon-image::after {
+    width: 50%;
+    transform: translateX(-50%);
+}
+h3 {
+    color: white;
+    text-align: center;
+    font-size: large;
+}
+.planet {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Planet_collage_to_scale.jpg/660px-Planet_collage_to_scale.jpg);
+    background-position: 100%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.planet:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.stars {
+    background: url(https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1638882786/EducationHub/photos/sun-blasts-a-m66-flare.jpg);
+    background-position: 50%;
+    background-size: 81%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.stars:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.constellations {
+    background: url(https://cdn.mos.cms.futurecdn.net/zDHiTCNw6TDUC8XEt4GHWj.jpg);
+    background-position: 50%;
+    background-size: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.constellations:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.blackholes {
+    background: url(https://cdn.mos.cms.futurecdn.net/HsDtpFEHbDpae6wBuW5wQo.jpg);
+    background-position: 50%;
+    background-size: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.blackholes:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.quasars {
+    background: url(https://cdn.mos.cms.futurecdn.net/Wak2kpPQjCm8AVUBW2eEB4-1200-80.jpg);
+    background-position: 50%;
+    background-size: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.quasars:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.x-raybinaries {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Accretion_disk.jpg/1200px-Accretion_disk.jpg);
+    background-position: 50%;
+    background-size: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.x-raybinaries:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.neutron {
+    background: url(https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2024/03/what_is_a_neutron_star/25980139-1-eng-GB/What_is_a_neutron_star.jpg);
+    background-position: 50%;
+    background-size: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.neutron:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.dwarfs {
+    background: url(https://media-cldnry.s-nbcnews.com/image/upload/newscms/2018_22/1254611/151007-pluto-mn-1525.jpg);
+    background-size: 85%;
+    background-position: 60%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.dwarfs:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.exoplanets {
+    background: url(https://science.nasa.gov/wp-content/uploads/2023/04/hs-2015-44-b-xlarge_web-jpg.webp?w=4096&format=png);
+    background-size: 100%;
+    background-position: 60%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.exoplanets:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Mercury {
+    background: url(https://cdn.mos.cms.futurecdn.net/fjbeeRiPRQjQNhizwy7cWX-1200-80.jpg);
+    background-position: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Mercury:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Venus {
+    background: url(https://science.nasa.gov/wp-content/uploads/2023/05/688-venus-1200-jpg.webp?w=640);
+    background-position: 100%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Venus:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Earth {
+    background: url(https://science.nasa.gov/wp-content/uploads/2023/12/309_ImageWall5_768px-60.jpg);
+    background-position: 100%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Earth:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Mars {
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo0sfBghhyvJ0mC6ONbnM7wi1o_H484LZ9PA&s);
+    background-position: 100%;
+    background-size: 100%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Mars:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Jupiter {
+    background: url(https://cdn.britannica.com/84/4284-050-16C7E8C2/Photograph-Jupiter-range-Voyager-1-cloud-bands-February-1-1979.jpg);
+    background-position: 100%;
+    background-size: 105%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Jupiter:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Saturn {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/800px-Saturn_during_Equinox.jpg);
+    background-position: 100%;
+    background-size: 110%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Saturn:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Uranus {
+    background: url(https://images-assets.nasa.gov/image/PIA18182/PIA18182~orig.jpg?w=1720&h=1720&fit=clip&crop=faces%2Cfocalpoint);
+    background-position: 100%;
+    background-size: 92%;
+    color: black;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Uranus:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.Neptune {
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVsGck3L71Bk3ieHvltMsc-_z0XKR3W6g9EA&s);
+    background-position: 100%;
+    background-size: 120%;
+    color: white;
+    height: 250px;
+    width: 500px;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.Neptune:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.back {
+    background-color: orangered;
+    height: 25px;
+    width: 50px;
+    background-position: center;
+    font-size: 15px;
+}
+.back:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+.insta img {
+    position: absolute;
+    height: 100px;
+    width:100px;
+    bottom: 5px;
+    left: 40%;
+}
+.insta img:hover {
+    opacity: .5;
+}
+.faceb img {
+    position: absolute;
+    height: 75px;
+    width:75px;
+    bottom: 20px;
+    left: 50%;
+}
+.faceb img:hover {
+    opacity: .5;
 }

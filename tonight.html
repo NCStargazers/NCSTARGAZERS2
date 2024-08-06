@@ -1,31 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="style.css">
 <head>
     <title>Best of tonight:</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Best of tonight:</h1>
     <p>New Canaan, CT</p>
     <p>41° 8' 47" N. 73° 29' 43" W.</p>
     <div id="dateContainer"></div>
+    <h2 class="info">Light Pollution = <span class="number">9</span></h2>
+    <div id="moonPhaseContainer"></div>
+    <div id="astronomyData"></div>
     <script>
-        document.getElementById('dateContainer').innerHTML = Date();
-    </script>
-    <h2 class="info">Light Pollution = <span class="number">9 </h2>
-    <div class="sphere">
-        <div class="lighthem"></div>
-        <div class="darkhem"></div>
-        <div class="divider"></div>
-    </div>
-    <script>
-        const getMoonPhaseRotation = dateContainer => {
-            const cycleLength = 29.5
-            const knownNewMoon = new Date('2024-07-05 18:57:00')
-            const secondsSinceKnownNewMoon = (date - knownNewMoon) / 1000
-            const daysSinceKnownNewMoon = secondsSinceKnownNewMoon / 3600 /24
-            const currentMoonPhasePercentage = (daysSinceKnownNewMoon % cycleLength)
-            return 360 - Math.floor(currentMoonPhasePercentage*360)
+    window.onload = function() {
+        document.getElementById('dateContainer').innerHTML = new Date().toLocaleString();
+        
+        // Moon Phase Calculation
+        function getMoonPhase() {
+            const lunarMonth = 29.53058867;
+            const newMoonDate = new Date('2024-07-05');
+            const today = new Date();
+            const diffInDays = (today - newMoonDate) / (1000 * 3600 * 24);
+            const moonAge = diffInDays % lunarMonth;
+            if (moonAge < 1.84566) return "New Moon";
+            else if (moonAge < 5.53699) return "Waxing Crescent";
+            else if (moonAge < 9.22831) return "First Quarter";
+            else if (moonAge < 12.91963) return "Waxing Gibbous";
+            else if (moonAge < 16.61096) return "Full Moon";
+            else if (moonAge < 20.30228) return "Waning Gibbous";
+            else if (moonAge < 23.99361) return "Last Quarter";
+            else if (moonAge < 27.68493) return "Waning Crescent";
+            else return "New Moon";
         }
+        
+        const moonPhase = getMoonPhase();
+        document.getElementById('moonPhaseContainer').innerHTML = "Moon Phase: " + moonPhase;
+
+        // Fetching Astronomy Data
+        async function fetchAstronomyData() {
+            const applicationID = '99675a40-fcfb-4fe2-be48-debc4fe775fe';
+            const applicationSecret = 'c6a0e1b042ad38b242659eef0b63c2b7120d5ff360b18e2149f9186fc30e307e892f410fcada405a53e3d57dd025630654b6bf80ced26168e790cc1e34e23f82c6f98e58fd939976ab6eff76660f3af911dce69f8f643f1f400f391c945432cf69bd3daa8a89e75d4455fe620f7cb78f';
+            const latitude = 41.1464;
+            const longitude = -73.4953;
+            const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            const response = await fetch(`https://api.astronomyapi.com/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&from_date=${date}&to_date=${date}&elevation=0&time=22:00:00`, {
+                headers: {
+                    'Authorization': `Basic ${btoa(`${'99675a40-fcfb-4fe2-be48-debc4fe775fe'}:${'c6a0e1b042ad38b242659eef0b63c2b7120d5ff360b18e2149f9186fc30e307e892f410fcada405a53e3d57dd025630654b6bf80ced26168e790cc1e34e23f82c6f98e58fd939976ab6eff76660f3af911dce69f8f643f1f400f391c945432cf69bd3daa8a89e75d4455fe620f7cb78f'}`)}`
+                }
+            });
+            const data = await response.json();
+            return data;
+        }
+
+        fetchAstronomyData().then(data => {
+            console.log(data);
+            const visibleBodies = data.data.table.rows[0].cells.filter(body => body.body.name !== 'Sun');
+            let htmlContent = '<h2>Visible Planets and Stars</h2>';
+            visibleBodies.forEach(body => {
+                htmlContent += `<p>${body.body.name} - Azimuth: ${body.position.horizonal.azimuth.degrees}°, Altitude: ${body.position.horizonal.altitude.degrees}°</p>`;
+            });
+            document.getElementById('astronomyData').innerHTML = htmlContent;
+        }).catch(error => {
+            console.error('Error fetching astronomy data:', error);
+        });
+    };
+    </script>
+    <div>
+    <a href="NCStargazers3.html">
+        <button class="back">Back</button>
+    </a>
+    </div>
 </body>
 </html>
