@@ -53,52 +53,6 @@ span.number {
     justify-content: center;
     margin-top: 20px;
 }
-.moon-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: whitesmoke;
-    position: relative;
-}
-.moon-image::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: navy;
-}
-.new-moon .moon-image::after {
-    background-color: navy;
-}
-.waxing-crescent .moon-image::after {
-    width: 50%;
-    transform: translateX(50%);
-}
-.first-quarter .moon-image::after {
-    width: 50%;
-}
-.waxing-gibbous .moon-image::after {
-    width: 25%;
-    transform: translateX(75%);
-}
-.full-moon .moon-image::after {
-    display: none;
-}
-.waning-gibbous .moon-image::after {
-    width: 25%;
-    transform: translateX(-25%);
-}
-.last-quarter .moon-image::after {
-    width: 50%;
-    transform: translateX(0%);
-}
-.waning-crescent .moon-image::after {
-    width: 50%;
-    transform: translateX(-50%);
-}
 h3 {
     color: white;
     text-align: center;
@@ -368,4 +322,50 @@ h3 {
 }
 .faceb img:hover {
     opacity: .5;
+}
+
+.more {
+    background-color: navy;
+    color: white;
+    margin: auto;
+    height: 40px;
+    width: 600px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 30px;
+}
+.more:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+/* General table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+/* Table header styling */
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+/* Table row background color */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Table header background color */
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Hover effect for table rows */
+table tr:hover {
+    background-color:
 }
