@@ -6,7 +6,6 @@ body {
     background-image: url(https://www.shutterstock.com/shutterstock/videos/9569429/thumb/1.jpg?ip=x480);
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
 }
 h1 {
     color: white;
@@ -294,10 +293,11 @@ h3 {
 }
 .back {
     background-color: orangered;
-    height: 25px;
-    width: 50px;
+    height: 50px;
+    width: 200px;
     background-position: center;
     font-size: 15px;
+    margin-bottom: 10%;
 }
 .back:hover {
     background-color: grey;
@@ -339,33 +339,27 @@ h3 {
     background-color: grey;
     cursor: pointer;
 }
-/* General table styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: left;
+    margin-top: 20px;
 }
 
-/* Table header styling */
-table th, table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ffcc00;
 }
 
-/* Table row background color */
-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+th {
+    background-color: #444444;
+    color: #ffcc00;
 }
 
-/* Table header background color */
-table th {
-    background-color: #4CAF50;
-    color: white;
+tr:nth-child(even) {
+    background-color: #333333;
 }
 
-/* Hover effect for table rows */
-table tr:hover {
-    background-color:
+tr:nth-child(odd) {
+    background-color: #2b2b2b;
 }
