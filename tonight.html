@@ -12,6 +12,7 @@
     <h2 class="info">Light Pollution = <span class="number">9</span></h2>
     <div id="moonPhaseContainer"></div>
     <div id="astronomyData"></div>
+    
     <script>
     window.onload = function() {
         document.getElementById('dateContainer').innerHTML = new Date().toLocaleString();
@@ -36,34 +37,25 @@
         
         const moonPhase = getMoonPhase();
         document.getElementById('moonPhaseContainer').innerHTML = "Moon Phase: " + moonPhase;
+        
+        // Celestial Objects Data
+        const celestialObjects = [
+            { name: "Mars", visible: true, minLightPollution: 7, moonPhase: ["Full Moon", "New Moon"] },
+            { name: "Venus", visible: true, minLightPollution: 9, moonPhase: ["First Quarter", "Waxing Crescent"] },
+            { name: "Saturn", visible: true, minLightPollution: 8, moonPhase: ["Waning Gibbous", "Waning Crescent"] },
+            { name: "Orion", visible: true, minLightPollution: 6, moonPhase: ["Any"] },
+            // Add more objects as needed
+        ];
+        
+        // Light Pollution Value
+        const lightPollution = 9; // Current light pollution value, could be dynamically updated later
 
-        // Fetching Astronomy Data
-        async function fetchAstronomyData() {
-            const applicationID = '99675a40-fcfb-4fe2-be48-debc4fe775fe';
-            const applicationSecret = 'c6a0e1b042ad38b242659eef0b63c2b7120d5ff360b18e2149f9186fc30e307e892f410fcada405a53e3d57dd025630654b6bf80ced26168e790cc1e34e23f82c6f98e58fd939976ab6eff76660f3af911dce69f8f643f1f400f391c945432cf69bd3daa8a89e75d4455fe620f7cb78f';
-            const latitude = 41.1464;
-            const longitude = -73.4953;
-            const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-            const response = await fetch(`https://api.astronomyapi.com/v2/bodies/positions?latitude=${latitude}&longitude=${longitude}&from_date=${date}&to_date=${date}&elevation=0&time=22:00:00`, {
-                headers: {
-                    'Authorization': `Basic ${btoa(`${'99675a40-fcfb-4fe2-be48-debc4fe775fe'}:${'c6a0e1b042ad38b242659eef0b63c2b7120d5ff360b18e2149f9186fc30e307e892f410fcada405a53e3d57dd025630654b6bf80ced26168e790cc1e34e23f82c6f98e58fd939976ab6eff76660f3af911dce69f8f643f1f400f391c945432cf69bd3daa8a89e75d4455fe620f7cb78f'}`)}`
-                }
-            });
-            const data = await response.json();
-            return data;
+        // Function to check visibility
+        function isVisible(object) {
+            return lightPollution <= object.minLightPollution && 
+                   (object.moonPhase.includes("Any") || object.moonPhase.includes(moonPhase));
         }
-
-        fetchAstronomyData().then(data => {
-            console.log(data);
-            const visibleBodies = data.data.table.rows[0].cells.filter(body => body.body.name !== 'Sun');
-            let htmlContent = '<h2>Visible Planets and Stars</h2>';
-            visibleBodies.forEach(body => {
-                htmlContent += `<p>${body.body.name} - Azimuth: ${body.position.horizonal.azimuth.degrees}°, Altitude: ${body.position.horizonal.altitude.degrees}°</p>`;
-            });
-            document.getElementById('astronomyData').innerHTML = htmlContent;
-        }).catch(error => {
-            console.error('Error fetching astronomy data:', error);
-        });
+        
     };
     </script>
     <div>
