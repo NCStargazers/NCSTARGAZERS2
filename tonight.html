@@ -25,11 +25,9 @@
        <tbody></tbody>
    </table>
 
-
    <script>
        window.onload = function() {
            document.getElementById('dateContainer').innerHTML = new Date().toLocaleString();
-
 
            // Moon Phase Calculation
            function getMoonPhase() {
@@ -48,21 +46,18 @@
                else if (moonAge < 27.68493) return "Waning Crescent";
                else return "New Moon";
            }
-      
+
            const moonPhase = getMoonPhase();
            document.getElementById('moonPhaseContainer').innerHTML = "Moon Phase: " + moonPhase;
 
-
-           // Celestial Objects Data
+           // List of celestial objects data
            const celestialObjects = [
-               { name: "Mars", moonPhase: ["Any"], direction: "East", visibility: "Visible All Year" },  // Always visible
+               { name: "Mars", moonPhase: ["Any"], direction: "East", visibility: "Visible All Year" },  
                { name: "Venus", moonPhase: ["First Quarter", "Waxing Crescent"], direction: "West", visibility: "Visible in Specific Phases" },
                { name: "Saturn", moonPhase: ["Waning Gibbous", "Waning Crescent"], direction: "South", visibility: "Visible in Specific Phases" },
-               { name: "Orion", moonPhase: ["Any"], direction: "Southwest", visibility: "Visible All Year" },  // Always visible
-               { name: "Jupiter", moonPhase: ["Any"], direction: "South", visibility: "Visible All Year" }, // Always visible
-               // Add more objects as needed
+               { name: "Orion", moonPhase: ["Any"], direction: "Southwest", visibility: "Visible All Year" },  
+               { name: "Jupiter", moonPhase: ["Any"], direction: "South", visibility: "Visible All Year" }
            ];
-
 
            // List of stars visible from New Canaan, CT
            const stars = [
@@ -78,33 +73,49 @@
                { name: "Spica", constellation: "Virgo", visible: "Spring", direction: "Southwest", visibility: "Visible in Spring" }
            ];
 
-
            // Function to check visibility based on moon phase or always visible flag
            function isVisible(object) {
-               console.log(`Checking visibility for ${object.name}:`);
-
-
-               // If object is marked as always visible, return true
                if (object.moonPhase.includes("Any")) {
-                   console.log(`  ${object.name} is always visible.`);
-                   return true;
+                   return true; // Always visible
                }
 
-
-               // Otherwise, check if the current moon phase matches the object's visibility phase
-               const moonPhaseCheck = object.moonPhase.includes(moonPhase);
-               console.log(`  Moon Phase Check: ${moonPhaseCheck} (Object Phases: ${object.moonPhase}, Current Moon Phase: ${moonPhase})`);
-
-
-               return moonPhaseCheck;
+               return object.moonPhase.includes(moonPhase); // Check if object's moon phase matches the current moon phase
            }
 
+           // Function to filter constellations based on user input (month)
+           function getVisibleConstellations(month) {
+               const constellationsData = [
+                   { 'Constellation': 'Andromeda', 'Month': 'November' },
+                   { 'Constellation': 'Aquila', 'Month': 'August' },
+                   { 'Constellation': 'Cassiopeia', 'Month': 'November' },
+                   { 'Constellation': 'Orion', 'Month': 'January' },
+                   { 'Constellation': 'Pegasus', 'Month': 'October' },
+                   { 'Constellation': 'Perseus', 'Month': 'December' },
+                   { 'Constellation': 'Taurus', 'Month': 'January' },
+                   { 'Constellation': 'Ursa Major', 'Month': 'All Year' }
+               ];
+
+               return constellationsData.filter(constellation => 
+                   constellation.Month === month || constellation.Month === 'All Year'
+               ).map(c => c.Constellation);
+           }
+
+           // Prompt user for the month input
+           const userMonth = prompt("Enter the month you're in (e.g., January, February, etc.):").trim();
+           const discoveredConstellations = getVisibleConstellations(userMonth);
+
+           // Display the constellations in astronomy data
+           if (discoveredConstellations.length > 0) {
+               const directions = discoveredConstellations.join(', ');
+               document.getElementById('astronomyData').innerHTML = "You can find these constellations: " + directions;
+           } else {
+               document.getElementById('astronomyData').innerHTML = "No constellations found for the specified month.";
+           }
 
            // Function to populate the table
            function populateTable() {
                const tbody = document.querySelector('#datatable tbody');
                tbody.innerHTML = ''; // Clear existing rows
-
 
                // Populate Celestial Objects
                celestialObjects.forEach(object => {
@@ -119,7 +130,6 @@
                    }
                });
 
-
                // Populate Stars
                stars.forEach(star => {
                    const row = document.createElement('tr');
@@ -132,12 +142,10 @@
                });
            }
 
-
            // Call the function to populate the table
            populateTable();
        };
    </script>
-
 
    <div>
        <a href="NCStargazers3.html">
