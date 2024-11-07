@@ -1,170 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Best of tonight:</title>
-    <link rel="stylesheet" href="style.css">
+   <title>Best of tonight:</title>
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Best of tonight:</h1>
-    <p>New Canaan, CT</p>
-    <p>41° 8' 47" N. 73° 29' 43" W.</p>
-    <div id="dateContainer"></div>
-    <h2 class="info">Light Pollution = <span class="number">9</span></h2>
-    <div id="moonPhaseContainer"></div>
-    <h3>Visible celestial objects tonight:</h3>
-    <div id="astronomyData"></div>
-    <table id="datatable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Direction</th>
-                <th>Visibility</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <ul id="starList"></ul>
+   <h1>Best of tonight:</h1>
+   <p>New Canaan, CT</p>
+   <p>41° 8' 47" N. 73° 29' 43" W.</p>
+   <div id="dateContainer"></div>
+   <h2 class="info">Light Pollution = <span class="number">9</span></h2>
+   <div id="moonPhaseContainer"></div>
+   <p>Best visible celestial objects to naked eye tonight:</p>
+   <h3>*Note* Visibility calculations do not consider the moon's light pollution or artificial light pollution impact</h3>
+   <div id="astronomyData"></div>
+   <table id="datatable">
+       <thead>
+           <tr>
+               <th>Name</th>
+               <th>Direction</th>
+               <th>Visibility</th>
+           </tr>
+       </thead>
+       <tbody></tbody>
+   </table>
 
-    <script>
-    window.onload = function() {
-        document.getElementById('dateContainer').innerHTML = new Date().toLocaleString();
-        
-        // Moon Phase Calculation
-        function getMoonPhase() {
-            const lunarMonth = 29.53058867;  // Average lunar month in days
-            const newMoonDate = new Date('2024-07-05'); // New Moon Date for reference
-            const today = new Date();
-            const diffInDays = (today - newMoonDate) / (1000 * 3600 * 24);  // Get difference in days
-            const moonAge = diffInDays % lunarMonth;  // Moon's age in the lunar cycle
 
-            // Return moon phase based on the age of the moon
-            if (moonAge < 1.84566) return "New Moon";
-            else if (moonAge < 5.53699) return "Waxing Crescent";
-            else if (moonAge < 9.22831) return "First Quarter";
-            else if (moonAge < 12.91963) return "Waxing Gibbous";
-            else if (moonAge < 16.61096) return "Full Moon";
-            else if (moonAge < 20.30228) return "Waning Gibbous";
-            else if (moonAge < 23.99361) return "Last Quarter";
-            else if (moonAge < 27.68493) return "Waning Crescent";
-            else return "New Moon";
-        }
+   <script>
+       window.onload = function() {
+           document.getElementById('dateContainer').innerHTML = new Date().toLocaleString();
 
-        const moonPhase = getMoonPhase();  // Get current moon phase
-        document.getElementById('moonPhaseContainer').innerHTML = "Moon Phase: " + moonPhase;
-        
-        // Celestial Objects Data (including direction and moon phase visibility)
-        const celestialObjects = [
-            { name: "Mars", moonPhase: ["Full Moon", "New Moon"], direction: "East", visibility: "Visible in Any Phase" },
-            { name: "Venus", moonPhase: ["First Quarter", "Waxing Crescent"], direction: "West", visibility: "Visible in Specific Phases" },
-            { name: "Saturn", moonPhase: ["Waning Gibbous", "Waning Crescent"], direction: "South", visibility: "Visible in Specific Phases" },
-            { name: "Orion", moonPhase: ["Any"], direction: "Southwest", visibility: "Visible All Year" },
-            // Add more objects as needed
-        ];
 
-        // List of stars visible from New Canaan, CT
-        const stars = [
-            { name: "Sirius", constellation: "Canis Major", visible: "All Year", direction: "South", visibility: "Visible All Year" },
-            { name: "Betelgeuse", constellation: "Orion", visible: "All Year", direction: "Southwest", visibility: "Visible All Year" },
-            { name: "Rigel", constellation: "Orion", visible: "All Year", direction: "Southwest", visibility: "Visible All Year" },
-            { name: "Procyon", constellation: "Canis Minor", visible: "All Year", direction: "South", visibility: "Visible All Year" },
-            { name: "Altair", constellation: "Aquila", visible: "Summer", direction: "West", visibility: "Visible in Summer" },
-            { name: "Vega", constellation: "Lyra", visible: "Summer", direction: "Northwest", visibility: "Visible in Summer" },
-            { name: "Capella", constellation: "Auriga", visible: "Winter", direction: "Northwest", visibility: "Visible in Winter" },
-            { name: "Antares", constellation: "Scorpius", visible: "Summer", direction: "Southwest", visibility: "Visible in Summer" },
-            { name: "Arcturus", constellation: "Boötes", visible: "All Year", direction: "West", visibility: "Visible All Year" },
-            { name: "Spica", constellation: "Virgo", visible: "Spring", direction: "Southwest", visibility: "Visible in Spring" }
-        ];
+           // Moon Phase Calculation
+           function getMoonPhase() {
+               const lunarMonth = 29.53058867;
+               const newMoonDate = new Date('2024-07-05');
+               const today = new Date();
+               const diffInDays = (today - newMoonDate) / (1000 * 3600 * 24);
+               const moonAge = diffInDays % lunarMonth;
+               if (moonAge < 1.84566) return "New Moon";
+               else if (moonAge < 5.53699) return "Waxing Crescent";
+               else if (moonAge < 9.22831) return "First Quarter";
+               else if (moonAge < 12.91963) return "Waxing Gibbous";
+               else if (moonAge < 16.61096) return "Full Moon";
+               else if (moonAge < 20.30228) return "Waning Gibbous";
+               else if (moonAge < 23.99361) return "Last Quarter";
+               else if (moonAge < 27.68493) return "Waning Crescent";
+               else return "New Moon";
+           }
+      
+           const moonPhase = getMoonPhase();
+           document.getElementById('moonPhaseContainer').innerHTML = "Moon Phase: " + moonPhase;
 
-        // Function to check visibility based only on moon phase
-        function isVisible(object) {
-            console.log(`Checking visibility for ${object.name}:`);
 
-            // Only check moon phase here, ignoring light pollution
-            const moonPhaseCheck = object.moonPhase.includes("Any") || object.moonPhase.includes(moonPhase);
-            console.log(`  Moon Phase Check: ${moonPhaseCheck} (Object Phases: ${object.moonPhase}, Current Moon Phase: ${moonPhase})`);
+           // Celestial Objects Data
+           const celestialObjects = [
+               { name: "Mars", moonPhase: ["Any"], direction: "East", visibility: "Visible All Year" },  // Always visible
+               { name: "Venus", moonPhase: ["First Quarter", "Waxing Crescent"], direction: "West", visibility: "Visible in Specific Phases" },
+               { name: "Saturn", moonPhase: ["Waning Gibbous", "Waning Crescent"], direction: "South", visibility: "Visible in Specific Phases" },
+               { name: "Orion", moonPhase: ["Any"], direction: "Southwest", visibility: "Visible All Year" },  // Always visible
+               { name: "Jupiter", moonPhase: ["Any"], direction: "South", visibility: "Visible All Year" }, // Always visible
+               // Add more objects as needed
+           ];
 
-            return moonPhaseCheck;
-        }
 
-        // Function to populate the table
-        function populateTable() {
-            const tbody = document.querySelector('#datatable tbody');
-            tbody.innerHTML = ''; // Clear existing rows
+           // List of stars visible from New Canaan, CT
+           const stars = [
+               { name: "Sirius", constellation: "Canis Major", visible: "All Year", direction: "South", visibility: "Visible All Year" },
+               { name: "Betelgeuse", constellation: "Orion", visible: "All Year", direction: "Southwest", visibility: "Visible All Year" },
+               { name: "Rigel", constellation: "Orion", visible: "All Year", direction: "Southwest", visibility: "Visible All Year" },
+               { name: "Procyon", constellation: "Canis Minor", visible: "All Year", direction: "South", visibility: "Visible All Year" },
+               { name: "Altair", constellation: "Aquila", visible: "Summer", direction: "West", visibility: "Visible in Summer" },
+               { name: "Vega", constellation: "Lyra", visible: "Summer", direction: "Northwest", visibility: "Visible in Summer" },
+               { name: "Capella", constellation: "Auriga", visible: "Winter", direction: "Northwest", visibility: "Visible in Winter" },
+               { name: "Antares", constellation: "Scorpius", visible: "Summer", direction: "Southwest", visibility: "Visible in Summer" },
+               { name: "Arcturus", constellation: "Boötes", visible: "All Year", direction: "West", visibility: "Visible All Year" },
+               { name: "Spica", constellation: "Virgo", visible: "Spring", direction: "Southwest", visibility: "Visible in Spring" }
+           ];
 
-            // Populate Celestial Objects
-            celestialObjects.forEach(object => {
-                if (isVisible(object)) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${object.name}</td>
-                        <td>${object.direction}</td>
-                        <td>${object.visibility}</td>
-                    `;
-                    tbody.appendChild(row);
-                }
-            });
 
-            // Populate Stars
-            stars.forEach(star => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${star.name}</td>
-                    <td>${star.direction}</td>
-                    <td>${star.visibility}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+           // Function to check visibility based on moon phase or always visible flag
+           function isVisible(object) {
+               console.log(`Checking visibility for ${object.name}:`);
 
-        // Call the function to populate the table
-        populateTable();
 
-        // Display the stars in the list
-        const starListElement = document.getElementById('starList');
-        stars.forEach(star => {
-            const starItem = document.createElement('li');
-            starItem.textContent = `${star.name} - Constellation: ${star.constellation} (Visible in: ${star.visible}, Direction: ${star.direction})`;
-            starListElement.appendChild(starItem);
-        });
+               // If object is marked as always visible, return true
+               if (object.moonPhase.includes("Any")) {
+                   console.log(`  ${object.name} is always visible.`);
+                   return true;
+               }
 
-        // Constellations Data
-        const constellationsData = [
-            { 'Constellation': 'Andromeda', 'Month': 'November' },
-            { 'Constellation': 'Aquila', 'Month': 'August' },
-            { 'Constellation': 'Cassiopeia', 'Month': 'November' },
-            { 'Constellation': 'Orion', 'Month': 'January' },
-            { 'Constellation': 'Pegasus', 'Month': 'October' },
-            { 'Constellation': 'Perseus', 'Month': 'December' },
-            { 'Constellation': 'Taurus', 'Month': 'January' },
-            { 'Constellation': 'Ursa Major', 'Month': 'All Year' },
-            // Add more constellations as needed
-        ];
 
-        // Function to get visible constellations
-        function getVisibleConstellations(month) {
-            return constellationsData.filter(constellation => 
-                constellation.Month.toLowerCase() === month.toLowerCase() || constellation.Month === 'All Year'
-            ).map(c => c.Constellation);
-        }
+               // Otherwise, check if the current moon phase matches the object's visibility phase
+               const moonPhaseCheck = object.moonPhase.includes(moonPhase);
+               console.log(`  Moon Phase Check: ${moonPhaseCheck} (Object Phases: ${object.moonPhase}, Current Moon Phase: ${moonPhase})`);
 
-        // Prompt user for month and display constellations
-        const userMonth = prompt("Enter the month you're in (e.g., January, February):");
-        if (userMonth) {
-            const discoveredConstellations = getVisibleConstellations(userMonth);
 
-            if (discoveredConstellations.length > 0) {
-                const directions = discoveredConstellations.join(', ');
-                document.getElementById('astronomyData').innerHTML = "You can find these constellations: " + directions;
-            } else {
-                document.getElementById('astronomyData').innerHTML = "No constellations found for the specified month.";
-            }
-        }
-    };
-    </script>
-    <div>
-        <a href="NCStargazers3.html">
-            <button class="back">Back</button>
-        </a>
-    </div>
+               return moonPhaseCheck;
+           }
+
+
+           // Function to populate the table
+           function populateTable() {
+               const tbody = document.querySelector('#datatable tbody');
+               tbody.innerHTML = ''; // Clear existing rows
+
+
+               // Populate Celestial Objects
+               celestialObjects.forEach(object => {
+                   if (isVisible(object)) {
+                       const row = document.createElement('tr');
+                       row.innerHTML = `
+                           <td>${object.name}</td>
+                           <td>${object.direction}</td>
+                           <td>${object.visibility}</td>
+                       `;
+                       tbody.appendChild(row);
+                   }
+               });
+
+
+               // Populate Stars
+               stars.forEach(star => {
+                   const row = document.createElement('tr');
+                   row.innerHTML = `
+                       <td>${star.name}</td>
+                       <td>${star.direction}</td>
+                       <td>${star.visibility}</td>
+                   `;
+                   tbody.appendChild(row);
+               });
+           }
+
+
+           // Call the function to populate the table
+           populateTable();
+       };
+   </script>
+
+
+   <div>
+       <a href="NCStargazers3.html">
+           <button class="back">Back</button>
+       </a>
+   </div>
 </body>
 </html>
